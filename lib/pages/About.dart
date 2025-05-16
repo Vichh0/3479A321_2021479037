@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class AboutPage extends StatefulWidget {
+  const AboutPage({super.key, required this.title});
 
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<AboutPage> createState() => _AboutPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _AboutPageState extends State<AboutPage> {
   int _counter = 0;
 
   void _incrementCounter() {

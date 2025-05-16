@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_laboratorio/pages/About.dart';
 import 'package:flutter_svg/svg.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -18,11 +19,13 @@ class _MyHomePageState extends State<MyHomePage> {
       _counter++;
     });
   }
+
   void _decreaseCounter() {
     setState(() {
       _counter--;
     });
   }
+
   void _resetCounter() {
     setState(() {
       _counter = 0;
@@ -31,19 +34,57 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    print('createState: creando el estado de MyHomePage');
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.primary,
+              ),
+              child: const Text(
+                'Menú de navegación',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                ),
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.home),
+              title: Text('Home'),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.settings),
+              title: Text('About'),
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const AboutPage(title: 'About',)),
+  );
+  
+              },
+            ),
+          ],
+        ),
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-             SvgPicture.asset(
-                'Assets/Icons/8666725_globe_icon.svg',semanticsLabel: 'Dart Logo',),
+            SvgPicture.asset(
+              'Assets/Icons/8666725_globe_icon.svg',
+              semanticsLabel: 'Dart Logo',
+            ),
             const Text(
-              'Has pulsado el boton:',
+              'Has pulsado el botón:',
             ),
             Text(
               '$_counter',
@@ -60,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return [
       TextButton(onPressed: _incrementCounter, child: Icon(Icons.add)),
       TextButton(onPressed: _decreaseCounter, child: Icon(Icons.remove)),
-      TextButton(onPressed: _resetCounter, child: Icon(Icons.restore))
+      TextButton(onPressed: _resetCounter, child: Icon(Icons.restore)),
     ];
   }
 }
