@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_laboratorio/pages/About.dart';
-import 'package:flutter_application_laboratorio/pages/lista.dart';
+import 'package:flutter_application_laboratorio/pages/Home.dart';
 import 'package:flutter_application_laboratorio/pages/preferencias.dart';
 import 'package:flutter_svg/svg.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class ListaPage extends StatefulWidget {
+  const ListaPage({super.key, required this.title});
 
   final String title;
 
   @override
 
-  State<MyHomePage> createState(){
-    return _MyHomePageState();
+  State<ListaPage> createState(){
+    return _ListaPageState();
   }
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _ListaPageState extends State<ListaPage> {
   int _counter = 0;
 
   void _incrementCounter() {

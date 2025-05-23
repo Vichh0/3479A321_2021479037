@@ -1,41 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_laboratorio/pages/About.dart';
+import 'package:flutter_application_laboratorio/pages/Home.dart';
 import 'package:flutter_application_laboratorio/pages/lista.dart';
-import 'package:flutter_application_laboratorio/pages/preferencias.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
+class PreferencePage extends StatefulWidget {
+  const PreferencePage({super.key, required this.title});
   final String title;
-
   @override
-
-  State<MyHomePage> createState(){
-    return _MyHomePageState();
+  State<PreferencePage> createState(){
+    return _PreferencePageState();
   }
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+class _PreferencePageState extends State<PreferencePage> {
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+  bool Ischecked = false;
+
+  Future<void> _loadPreferences() async {
+    final prefs = await SharedPreferences.getInstance();
+      setState(() {
+        Ischecked = prefs.getBool('Ischecked') ?? false;
+        });
+  }
+  Future<void> _savePreferences() async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.setBool('Ischecked', Ischecked);
+  }
+  @override
+  void initState() {
+  super.initState();
+  _loadPreferences();
   }
 
-  void _decreaseCounter() {
-    setState(() {
-      _counter--;
-    });
+  @override
+  void dispose(){
+    super.dispose();
+    _savePreferences();
   }
-
-  void _resetCounter() {
-    setState(() {
-      _counter = 0;
-    });
-  }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -97,31 +100,16 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            SvgPicture.asset(
-              'Assets/Icons/8666725_globe_icon.svg',
-              semanticsLabel: 'Dart Logo',
-            ),
-            const Text(
-              'Has pulsado el botón:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
+          children: [
+            Text('checkbox'),
+            Checkbox(value: Ischecked , onChanged: (bool? value){
+              setState(() {
+                Ischecked = value!;
+              });
+            })
           ],
-        ),
+        )
       ),
-      persistentFooterButtons: botonesbasicos,
     );
-  }
-
-  List<Widget> get botonesbasicos {
-    return [
-      TextButton(onPressed: _incrementCounter, child: Icon(Icons.add)),
-      TextButton(onPressed: _decreaseCounter, child: Icon(Icons.remove)),
-      TextButton(onPressed: _resetCounter, child: Icon(Icons.restore)),
-    ];
   }
 }
