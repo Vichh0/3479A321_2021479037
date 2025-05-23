@@ -8,7 +8,13 @@ class MyHomePage extends StatefulWidget {
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+
+  State<MyHomePage> createState(){
+
+    print('iniciando MyHomePage');
+    
+    return _MyHomePageState();
+  }
 }
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -68,8 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
               title: Text('About'),
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(builder: (context) => const AboutPage(title: 'About',)),
-  );
-  
+                 );
               },
             ),
           ],
