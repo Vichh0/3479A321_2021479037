@@ -76,7 +76,6 @@ class _MyHomePageState extends State<MyHomePage> {
               leading: Icon(Icons.list),
               title: Text('Lista'),
               onTap: () {
-                Navigator.of(context).pop();
                 Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ListaPage(title: 'Lista')),
                 );
               },
@@ -85,7 +84,6 @@ class _MyHomePageState extends State<MyHomePage> {
               leading: Icon(Icons.settings),
               title: Text('About'),
               onTap: () {
-                Navigator.of(context).pop();
                 Navigator.of(context).push(MaterialPageRoute(builder: (context) => const AboutPage(title: 'About')),
                  );
               },

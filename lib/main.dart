@@ -16,8 +16,11 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.amber),
         useMaterial3: true,
       ),
+      
       home: const MyHomePage(title: 'Lab 7'),
     );
 
   }
 }
+//WidgetsFlutterBinding.ensureInitialized();
+//runApp(const MyApp());

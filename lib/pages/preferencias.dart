@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_laboratorio/pages/About.dart';
-import 'package:flutter_application_laboratorio/pages/Home.dart';
 import 'package:flutter_application_laboratorio/pages/lista.dart';
 import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
