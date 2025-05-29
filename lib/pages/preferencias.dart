@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_laboratorio/pages/About.dart';
 import 'package:flutter_application_laboratorio/pages/Home.dart';
 import 'package:flutter_application_laboratorio/pages/lista.dart';
+import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PreferencePage extends StatefulWidget {
   const PreferencePage({super.key, required this.title});
   final String title;
+
   @override
   State<PreferencePage> createState(){
     return _PreferencePageState();
@@ -16,25 +18,30 @@ class PreferencePage extends StatefulWidget {
 class _PreferencePageState extends State<PreferencePage> {
 
   bool Ischecked = false;
+  var logger = Logger();
 
   Future<void> _loadPreferences() async {
+    logger.d("Load preferences!");
     final prefs = await SharedPreferences.getInstance();
       setState(() {
         Ischecked = prefs.getBool('Ischecked') ?? false;
         });
   }
   Future<void> _savePreferences() async {
+    logger.d("save preferences!");
   final prefs = await SharedPreferences.getInstance();
   await prefs.setBool('Ischecked', Ischecked);
   }
   @override
   void initState() {
+    logger.d("init state!");
   super.initState();
   _loadPreferences();
   }
 
   @override
   void dispose(){
+    logger.d("dispose!");
     super.dispose();
     _savePreferences();
   }
@@ -67,8 +74,10 @@ class _PreferencePageState extends State<PreferencePage> {
               leading: Icon(Icons.home),
               title: Text('Home'),
               onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const MyHomePage(title: 'Home')),
-                );
+                //Navigator.of(context).push(MaterialPageRoute(builder: (context) => const MyHomePage(title: 'Home')),
+               // );
+               Navigator.of(context).pop();
+               Navigator.pop(context);
               },
             ),
             ListTile(
@@ -87,14 +96,6 @@ class _PreferencePageState extends State<PreferencePage> {
                  );
               },
             ),
-            ListTile(
-              leading: Icon(Icons.precision_manufacturing),
-              title: Text('Preferencias'),
-              onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const PreferencePage(title: 'Preferencias')),
-                );
-              },
-            ),
           ],
         ),
       ),
@@ -105,6 +106,7 @@ class _PreferencePageState extends State<PreferencePage> {
             Checkbox(value: Ischecked , onChanged: (bool? value){
               setState(() {
                 Ischecked = value!;
+                _savePreferences();
               });
             })
           ],

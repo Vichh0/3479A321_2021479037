@@ -38,6 +38,9 @@ dependencies:
   flutter_svg: any
   provider: ^6.1.5
   shared_preferences: ^2.2.3
+  logger: ^2.5.0
+  sqflite: ^2.3.3+1
+  path: ^1.9.0
 
 dev_dependencies:
   flutter_test:

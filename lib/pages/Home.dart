@@ -3,6 +3,7 @@ import 'package:flutter_application_laboratorio/pages/About.dart';
 import 'package:flutter_application_laboratorio/pages/lista.dart';
 import 'package:flutter_application_laboratorio/pages/preferencias.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -17,7 +18,18 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+  
   int _counter = 0;
+  bool _Ischecked = false;
+
+  Future<void> _loadPreferences() async {
+    
+    final prefs = await SharedPreferences.getInstance();
+      setState(() {
+        _Ischecked = prefs.getBool('Ischecked') ?? false;
+        });
+  }
 
   void _incrementCounter() {
     setState(() {
@@ -61,17 +73,10 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             ListTile(
-              leading: Icon(Icons.home),
-              title: Text('Home'),
-              onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const MyHomePage(title: 'Home')),
-                );
-              },
-            ),
-            ListTile(
               leading: Icon(Icons.list),
               title: Text('Lista'),
               onTap: () {
+                Navigator.of(context).pop();
                 Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ListaPage(title: 'Lista')),
                 );
               },
@@ -80,6 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
               leading: Icon(Icons.settings),
               title: Text('About'),
               onTap: () {
+                Navigator.of(context).pop();
                 Navigator.of(context).push(MaterialPageRoute(builder: (context) => const AboutPage(title: 'About')),
                  );
               },
@@ -88,7 +94,10 @@ class _MyHomePageState extends State<MyHomePage> {
               leading: Icon(Icons.precision_manufacturing),
               title: Text('Preferencias'),
               onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const PreferencePage(title: 'Preferencias')),
+                Navigator.of(context).pop();
+                Navigator.push(context, MaterialPageRoute(builder: (context) => PreferencePage(title: 'Preferencias',))).then((_) {
+                  _loadPreferences();
+                  }
                 );
               },
             ),
@@ -121,7 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return [
       TextButton(onPressed: _incrementCounter, child: Icon(Icons.add)),
       TextButton(onPressed: _decreaseCounter, child: Icon(Icons.remove)),
-      TextButton(onPressed: _resetCounter, child: Icon(Icons.restore)),
+      TextButton(onPressed: _Ischecked ? _resetCounter : null, child: Icon(Icons.restore), ),
     ];
   }
 }

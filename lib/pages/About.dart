@@ -64,8 +64,8 @@ class _AboutPageState extends State<AboutPage> {
               leading: Icon(Icons.home),
               title: Text('Home'),
               onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const MyHomePage(title: 'Home')),
-                );
+               Navigator.of(context).pop();
+               Navigator.pop(context);
               },
             ),
             ListTile(
@@ -74,14 +74,6 @@ class _AboutPageState extends State<AboutPage> {
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ListaPage(title: 'Lista')),
                 );
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.settings),
-              title: Text('About'),
-              onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const AboutPage(title: 'About')),
-                 );
               },
             ),
             ListTile(

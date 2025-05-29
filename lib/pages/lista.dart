@@ -64,16 +64,8 @@ class _ListaPageState extends State<ListaPage> {
               leading: Icon(Icons.home),
               title: Text('Home'),
               onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const MyHomePage(title: 'Home')),
-                );
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.list),
-              title: Text('Lista'),
-              onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ListaPage(title: 'Lista')),
-                );
+               Navigator.of(context).pop();
+               Navigator.pop(context);
               },
             ),
             ListTile(
