@@ -23,6 +23,13 @@ class _MyHomePageState extends State<MyHomePage> {
   
   int _counter = 0;
   bool _Ischecked = false;
+  String imageUrl = ' '; 
+  
+  void _getNewImage() {
+    setState(() {
+      imageUrl = 'https://picsum.photos/250?image=${17 + _counter}';
+    });
+  }
 
   Future<void> _loadPreferences() async {
     
@@ -49,6 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
       _counter = 0;
     });
   }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -115,6 +123,11 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Image.network('https://picsum.photos/250?image=17',
+            width: 250,
+            height: 250,
+            fit: BoxFit.cover,
+            ),
             SvgPicture.asset(
               'Assets/Icons/8666725_globe_icon.svg',
               semanticsLabel: 'Dart Logo',
@@ -138,6 +151,8 @@ class _MyHomePageState extends State<MyHomePage> {
       TextButton(onPressed: _incrementCounter, child: Icon(Icons.add)),
       TextButton(onPressed: _decreaseCounter, child: Icon(Icons.remove)),
       TextButton(onPressed: _Ischecked ? _resetCounter : null, child: Icon(Icons.restore), ),
+|
     ];
   }
+  
 }
