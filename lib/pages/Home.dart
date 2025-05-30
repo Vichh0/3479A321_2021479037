@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_laboratorio/pages/About.dart';
 import 'package:flutter_application_laboratorio/pages/lista.dart';
+import 'package:flutter_application_laboratorio/pages/pagina_actividades.dart';
 import 'package:flutter_application_laboratorio/pages/preferencias.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -98,6 +99,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   }
                 );
               },
+            ),
+            ListTile(
+              leading: Icon(Icons.precision_manufacturing),
+              title: Text('Actividades'),
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.push(context, MaterialPageRoute(builder: (context) => PaginaActividades()));
+               },
             ),
           ],
         ),

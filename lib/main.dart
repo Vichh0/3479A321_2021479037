@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_laboratorio/pages/Home.dart';
+import 'package:flutter_application_laboratorio/services/database_helper.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await DatabaseHelper().initializeDatabase();
   runApp(const MyApp());
 }
 class MyApp extends StatelessWidget {
