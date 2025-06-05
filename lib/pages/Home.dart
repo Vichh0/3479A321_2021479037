@@ -5,6 +5,7 @@ import 'package:flutter_application_laboratorio/pages/pagina_actividades.dart';
 import 'package:flutter_application_laboratorio/pages/preferencias.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -25,11 +26,31 @@ class _MyHomePageState extends State<MyHomePage> {
   bool _Ischecked = false;
   String imageUrl = ''; 
   
-  void _getNewImage() {
+  
+  Future<void> _getNewImage() async {
     setState(() {
       _counter++;
-      imageUrl = 'https://picsum.photos/250?image=${17 + _counter}';
+      imageUrl = 'https://picsum.photos/250?image=${0 + _counter}';
     });
+    final newImageUrl = 'https://picsum.photos/250?image=${0 + _counter}';
+    try {
+      final response = await http.head(Uri.parse(newImageUrl));
+      if (response.statusCode == 200) {
+        setState(() {
+          imageUrl = newImageUrl;
+          });
+      } 
+      else {
+        setState(() {
+          imageUrl = ''; // Clear the image URL
+          });
+      }
+    } 
+    catch (e) {
+      setState(() {
+        imageUrl = ''; // Clear the image URL
+      });
+    }
   }
 
   Future<void> _loadPreferences() async {
@@ -37,6 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
     final prefs = await SharedPreferences.getInstance();
       setState(() {
         _Ischecked = prefs.getBool('Ischecked') ?? false;
+
         });
   }
 
@@ -124,10 +146,16 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Image.network(imageUrl.isEmpty ? 'https://picsum.photos/250?image=0' : imageUrl,
+            Image.network(imageUrl.isNotEmpty ? imageUrl : '',
             width: 250,
             height: 250,
             fit: BoxFit.cover,
+            errorBuilder: (context, error, stackTrace) { 
+              return Center(
+                child: Text('Failed to load image',
+                style: TextStyle(color: Colors.red),),
+              );
+            },
             ),
             SvgPicture.asset(
               'Assets/Icons/8666725_globe_icon.svg',
