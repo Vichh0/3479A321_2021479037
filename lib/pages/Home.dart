@@ -31,6 +31,7 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _counter++;
       imageUrl = 'https://picsum.photos/250?image=${0 + _counter}';
+      
     });
     final newImageUrl = 'https://picsum.photos/250?image=${0 + _counter}';
     try {
@@ -42,13 +43,12 @@ class _MyHomePageState extends State<MyHomePage> {
       } 
       else {
         setState(() {
-          imageUrl = ''; // Clear the image URL
+          imageUrl = '';
           });
       }
-    } 
-    catch (e) {
+    } catch (e) {
       setState(() {
-        imageUrl = ''; // Clear the image URL
+        imageUrl = '';
       });
     }
   }
@@ -146,16 +146,16 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Image.network(imageUrl.isNotEmpty ? imageUrl : '',
-            width: 250,
-            height: 250,
-            fit: BoxFit.cover,
-            errorBuilder: (context, error, stackTrace) { 
-              return Center(
-                child: Text('Failed to load image',
-                style: TextStyle(color: Colors.red),),
-              );
-            },
+            Image.network(
+              imageUrl.isNotEmpty ? imageUrl : '',
+              width: 250,
+              height: 250,
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) {
+                return Center(
+                  child: Text('Failed to load image',style: TextStyle(color: Colors.red),),
+                  );
+              },
             ),
             SvgPicture.asset(
               'Assets/Icons/8666725_globe_icon.svg',
