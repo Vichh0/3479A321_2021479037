@@ -23,10 +23,11 @@ class _MyHomePageState extends State<MyHomePage> {
   
   int _counter = 0;
   bool _Ischecked = false;
-  String imageUrl = ' '; 
+  String imageUrl = ''; 
   
   void _getNewImage() {
     setState(() {
+      _counter++;
       imageUrl = 'https://picsum.photos/250?image=${17 + _counter}';
     });
   }
@@ -123,7 +124,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Image.network('https://picsum.photos/250?image=17',
+            Image.network(imageUrl.isEmpty ? 'https://picsum.photos/250?image=0' : imageUrl,
             width: 250,
             height: 250,
             fit: BoxFit.cover,
@@ -142,6 +143,11 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _getNewImage,
+        tooltip: 'Nueva Imagen',
+        child: const Icon(Icons.image),
+      ),
       persistentFooterButtons: botonesbasicos,
     );
   }
@@ -151,7 +157,6 @@ class _MyHomePageState extends State<MyHomePage> {
       TextButton(onPressed: _incrementCounter, child: Icon(Icons.add)),
       TextButton(onPressed: _decreaseCounter, child: Icon(Icons.remove)),
       TextButton(onPressed: _Ischecked ? _resetCounter : null, child: Icon(Icons.restore), ),
-|
     ];
   }
   
