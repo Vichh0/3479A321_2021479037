@@ -36,7 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
     final newImageUrl = 'https://picsum.photos/250?image=${0 + _counter}';
     try {
       final response = await http.head(Uri.parse(newImageUrl));
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200 || response.statusCode == 404) {
         setState(() {
           imageUrl = newImageUrl;
           });
@@ -179,7 +179,6 @@ class _MyHomePageState extends State<MyHomePage> {
       persistentFooterButtons: botonesbasicos,
     );
   }
-
   List<Widget> get botonesbasicos {
     return [
       TextButton(onPressed: _incrementCounter, child: Icon(Icons.add)),
