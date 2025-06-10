@@ -1,15 +1,18 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
-class CameraPage extends StatefulWidget {
-  const CameraPage({Key? key}) : super(key: key);
-  
+class PictureScreen extends StatefulWidget {
+
+  final CameraDescription camera;
+
+  const PictureScreen({Key? key, required this.camera}) : super(key: key);
 
   @override
-  _CameraPageState createState() => _CameraPageState();
+  _PictureScreenState createState() => _PictureScreenState();
+
 }
 
-class _CameraPageState extends State<CameraPage> {
+class _PictureScreenState extends State<PictureScreen> {
 
   late CameraController _controller;
   late Future<void> _initializeControllerFuture;
@@ -18,25 +21,26 @@ class _CameraPageState extends State<CameraPage> {
   void initState() {
     super.initState();
     _controller = CameraController(
-      widget.camera, ResolutionPreset.medium,
-      );
+      widget.camera,
+      ResolutionPreset.medium,
+    );
     _initializeControllerFuture = _controller.initialize();
   }
-  
   @override
   void dispose() {
     _controller.dispose();
     super.dispose();
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Camera Page'),
+        title: Text('Picture Screen'),
       ),
-      body: const Center(
-        child: Text('Camera screen content goes here'),
+      body: Center(
+        child: Text('Camera: ${widget.camera.name}'),
       ),
     );
   }
